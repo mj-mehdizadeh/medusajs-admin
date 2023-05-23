@@ -1,5 +1,6 @@
 import clsx from "clsx"
 import React, { useRef, useState } from "react"
+import { Translation, useTranslation } from "react-i18next"
 
 type FileUploadFieldProps = {
   onFileChosen: (files: File[]) => void
@@ -12,10 +13,14 @@ type FileUploadFieldProps = {
 }
 
 const defaultText = (
-  <span>
-    Drop your images here, or{" "}
-    <span className="text-violet-60">click to browse</span>
-  </span>
+  <Translation>
+    {(t) => (
+      <span>
+        {t("Drop your images here, or")}{" "}
+        <span className="text-violet-60">{t("click to browse")}</span>
+      </span>
+    )}
+  </Translation>
 )
 
 const FileUploadField: React.FC<FileUploadFieldProps> = ({
@@ -27,6 +32,7 @@ const FileUploadField: React.FC<FileUploadFieldProps> = ({
   placeholder = "",
   multiple = false,
 }) => {
+  const { t } = useTranslation()
   const inputRef = useRef<HTMLInputElement>(null)
   const [fileUploadError, setFileUploadError] = useState(false)
 
@@ -77,7 +83,7 @@ const FileUploadField: React.FC<FileUploadFieldProps> = ({
       onDrop={handleFileDrop}
       onDragOver={(e) => e.preventDefault()}
       className={clsx(
-        "flex flex-col select-none inter-base-regular text-grey-50 cursor-pointer items-center justify-center w-full h-full rounded-rounded border-2 border-dashed border-grey-20 transition-colors hover:border-violet-60 hover:text-grey-40",
+        "inter-base-regular flex h-full w-full cursor-pointer select-none flex-col items-center justify-center rounded-rounded border-2 border-dashed border-grey-20 text-grey-50 transition-colors hover:border-violet-60 hover:text-grey-40",
         className
       )}
     >
@@ -87,7 +93,7 @@ const FileUploadField: React.FC<FileUploadFieldProps> = ({
       </div>
       {fileUploadError && (
         <span className="text-rose-60">
-          {errorMessage || "Please upload an image file"}
+          {errorMessage || t("Please upload an image file")}
         </span>
       )}
       <input

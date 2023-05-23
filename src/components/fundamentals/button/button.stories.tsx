@@ -2,6 +2,7 @@ import { ComponentMeta } from "@storybook/react"
 import React from "react"
 import Button from "."
 import HappyIcon from "../icons/happy-icon"
+import { useTranslation } from "react-i18next"
 
 export default {
   title: "Fundamentals/Button",
@@ -22,7 +23,11 @@ export default {
   },
 } as ComponentMeta<typeof Button>
 
-const Template = args => <Button {...args}>Action</Button>
+const Template = (args) => {
+  const { t } = useTranslation()
+
+  return <Button {...args}>{t("Action")}</Button>
+}
 
 export const PrimaryLarge = Template.bind({})
 PrimaryLarge.args = {
@@ -144,7 +149,7 @@ GhostSmallLoading.args = {
   loading: true,
 }
 
-const TemplateWithIcon = args => (
+const TemplateWithIcon = (args) => (
   <Button {...args}>
     <HappyIcon size={20} /> Action
   </Button>

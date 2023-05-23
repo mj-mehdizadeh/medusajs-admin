@@ -1,5 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react"
 import React, { useState } from "react"
+import { Translation } from "react-i18next"
 import Fade from "."
 import Button from "../../fundamentals/button"
 import FocusModal from "../../molecules/modal/focus-modal"
@@ -31,10 +32,14 @@ const Template: ComponentStory<typeof Fade> = (args) => {
 export const Standard = Template.bind({})
 Standard.args = {
   children: (
-    <div className="mt-24">
-      <h1 className="inter-xlarge-semibold mb-8">Title</h1>
-      <span className="inter-base-semibold mb-4">Subtitle</span>
-    </div>
+    <Translation>
+      {(t) => (
+        <div className="mt-24">
+          <h1 className="inter-xlarge-semibold mb-8">{t("Title")}</h1>
+          <span className="inter-base-semibold mb-4">{t("Subtitle")}</span>
+        </div>
+      )}
+    </Translation>
   ),
 }
 
@@ -43,10 +48,14 @@ CustomAnimation.args = {
   start: "translate-x-full",
   end: "translate-x-0",
   children: (
-    <div className="mt-24">
-      <h1 className="inter-xlarge-semibold mb-8">Title</h1>
-      <span className="inter-base-semibold mb-4">Subtitle</span>
-    </div>
+    <Translation>
+      {(t) => (
+        <div className="mt-24">
+          <h1 className="inter-xlarge-semibold mb-8">{t("Title")}</h1>
+          <span className="inter-base-semibold mb-4">{t("Subtitle")}</span>
+        </div>
+      )}
+    </Translation>
   ),
 }
 
@@ -54,17 +63,21 @@ export const FullScreenFade = Template.bind({})
 FullScreenFade.args = {
   isFullScreen: true,
   children: (
-    <FocusModal>
-      <FocusModal.Header>
-        <h1>Testing</h1>
-      </FocusModal.Header>
-      <FocusModal.Main>
-        {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((i) => (
-          <span className="inter-base-regular" key={i}>
-            {i}
-          </span>
-        ))}
-      </FocusModal.Main>
-    </FocusModal>
+    <Translation>
+      {(t) => (
+        <FocusModal>
+          <FocusModal.Header>
+            <h1>{t("Testing")}</h1>
+          </FocusModal.Header>
+          <FocusModal.Main>
+            {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((i) => (
+              <span className="inter-base-regular" key={i}>
+                {i}
+              </span>
+            ))}
+          </FocusModal.Main>
+        </FocusModal>
+      )}
+    </Translation>
   ),
 }

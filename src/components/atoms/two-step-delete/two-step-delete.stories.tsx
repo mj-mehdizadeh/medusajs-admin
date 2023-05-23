@@ -3,9 +3,11 @@ import React from "react"
 import useState from "storybook-addon-state"
 import TwoStepDelete from "."
 import useNotification from "../../../hooks/use-notification"
+import { useTranslation } from "react-i18next"
 
 storiesOf("Atoms/TwoStepDelete", module).add("Default", () => {
   const [deleting, setDeleting] = useState<boolean>("delete", false)
+  const { t } = useTranslation()
 
   const notification = useNotification()
 
@@ -13,7 +15,7 @@ storiesOf("Atoms/TwoStepDelete", module).add("Default", () => {
     setDeleting(true)
     setTimeout(() => {
       setDeleting(false)
-      notification("Success", "Successfully deleted something", "success")
+      notification(t("Success"), t("Successfully deleted something"), "success")
     }, 3000)
   }
 
@@ -26,6 +28,7 @@ storiesOf("Atoms/TwoStepDelete", module).add("Default", () => {
 
 storiesOf("Atoms/TwoStepDelete", module).add("Custom text and style", () => {
   const [deleting, setDeleting] = useState<boolean>("delete", false)
+  const { t } = useTranslation()
 
   const notification = useNotification()
 
@@ -44,7 +47,7 @@ storiesOf("Atoms/TwoStepDelete", module).add("Custom text and style", () => {
         onDelete={fakeDelete}
         className="w-full"
       >
-        Cancel Order Edit
+        {t("Cancel Order Edit")}
       </TwoStepDelete>
     </div>
   )

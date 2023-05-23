@@ -3,6 +3,7 @@ import type { Toast } from "react-hot-toast"
 import CheckCircleIcon from "../../fundamentals/icons/check-circle-icon"
 import CrossIcon from "../../fundamentals/icons/cross-icon"
 import ToasterContainer from "../toaster-container"
+import { useTranslation } from "react-i18next"
 
 type SavingStateProps = {
   toast: Toast
@@ -13,10 +14,12 @@ type SavingStateProps = {
 
 const SuccessState: React.FC<SavingStateProps> = ({
   toast,
-  title = "Success",
-  message = "Your changes have been saved.",
+  title,
+  message,
   onDismiss,
 }) => {
+  const { t } = useTranslation()
+
   useEffect(() => {
     const life = setTimeout(() => {
       onDismiss()
@@ -32,15 +35,19 @@ const SuccessState: React.FC<SavingStateProps> = ({
       <div>
         <CheckCircleIcon size={20} className="text-emerald-40" />
       </div>
-      <div className="flex flex-col ml-small mr-base gap-y-2xsmall flex-grow">
-        <span className="inter-small-semibold">{title}</span>
-        <span className="inter-small-regular text-grey-50">{message}</span>
+      <div className="ml-small mr-base flex flex-grow flex-col gap-y-2xsmall">
+        <span className="inter-small-semibold">
+          {title ? title : t("Success")}
+        </span>
+        <span className="inter-small-regular text-grey-50">
+          {message ? message : t("Your changes have been saved.")}
+        </span>
       </div>
       <div>
         <button onClick={onDismiss}>
           <CrossIcon size={20} className="text-grey-40" />
         </button>
-        <span className="sr-only">Close</span>
+        <span className="sr-only">{t("Close")}</span>
       </div>
     </ToasterContainer>
   )

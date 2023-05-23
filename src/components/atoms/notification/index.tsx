@@ -7,6 +7,7 @@ import CrossIcon from "../../fundamentals/icons/cross-icon"
 import InfoIcon from "../../fundamentals/icons/info-icon"
 import XCircleIcon from "../../fundamentals/icons/x-circle-icon"
 import ToasterContainer from "../toaster-container"
+import { useTranslation } from "react-i18next"
 
 export type NotificationTypes = "success" | "warning" | "error" | "info"
 
@@ -23,6 +24,8 @@ const Notification: React.FC<NotificationProps> = ({
   title,
   message,
 }) => {
+  const { t } = useTranslation()
+
   const onDismiss = () => {
     globalToast.dismiss(toast.id)
   }
@@ -30,7 +33,7 @@ const Notification: React.FC<NotificationProps> = ({
   return (
     <ToasterContainer visible={toast.visible} className="w-[380px]">
       <div>{getIcon(type)}</div>
-      <div className="flex flex-col ml-small mr-base gap-y-2xsmall flex-grow text-white">
+      <div className="ml-small mr-base flex flex-grow flex-col gap-y-2xsmall text-white">
         <span className="inter-small-semibold">{title}</span>
         <span className="inter-small-regular text-grey-20">{message}</span>
       </div>
@@ -38,7 +41,7 @@ const Notification: React.FC<NotificationProps> = ({
         <button onClick={onDismiss}>
           <CrossIcon size={ICON_SIZE} className="text-grey-40" />
         </button>
-        <span className="sr-only">Close</span>
+        <span className="sr-only">{t("Close")}</span>
       </div>
     </ToasterContainer>
   )
