@@ -1,6 +1,7 @@
 import { useAdminCreateBatchJob } from "medusa-react"
 import React, { useContext, useMemo, useState } from "react"
 import { Route, Routes, useNavigate } from "react-router-dom"
+import { useTranslation } from "react-i18next"
 
 import Button from "../../components/fundamentals/button"
 import ExportIcon from "../../components/fundamentals/icons/export-icon"
@@ -20,6 +21,7 @@ const VIEWS = ["orders", "drafts"]
 const OrderIndex = () => {
   const view = "orders"
 
+  const { t } = useTranslation()
   const { resetInterval } = useContext(PollingContext)
   const navigate = useNavigate()
   const createBatchJob = useAdminCreateBatchJob()
@@ -42,7 +44,7 @@ const OrderIndex = () => {
         onClick={() => openExportModal()}
       >
         <ExportIcon size={20} />
-        Export Orders
+        {t("Export Orders")}
       </Button>,
     ]
   }, [view])
@@ -59,7 +61,7 @@ const OrderIndex = () => {
     createBatchJob.mutate(reqObj, {
       onSuccess: () => {
         resetInterval()
-        notification("Success", "Successfully initiated export", "success")
+        notification("Success", t("Successfully initiated export"), "success")
       },
       onError: (err) => {
         notification("Error", getErrorMessage(err), "error")
@@ -71,8 +73,8 @@ const OrderIndex = () => {
 
   return (
     <>
-      <div className="flex flex-col grow h-full">
-        <div className="w-full flex flex-col grow">
+      <div className="flex h-full grow flex-col">
+        <div className="flex w-full grow flex-col">
           <BodyCard
             customHeader={
               <TableViewHeader
@@ -94,7 +96,7 @@ const OrderIndex = () => {
       </div>
       {exportModalOpen && (
         <ExportModal
-          title="Export Orders"
+          title={t("Export Orders")}
           handleClose={() => closeExportModal()}
           onSubmit={handleCreateExport}
           loading={createBatchJob.isLoading}

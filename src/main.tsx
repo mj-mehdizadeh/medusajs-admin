@@ -10,6 +10,7 @@ import { FeatureFlagProvider } from "./context/feature-flag"
 import { medusaUrl } from "./services/config"
 import queryClient from "./services/queryClient"
 
+import "./i18n"
 const Page = ({ children }: PropsWithChildren) => {
   return (
     <MedusaProvider
